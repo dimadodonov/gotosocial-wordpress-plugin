@@ -1,0 +1,184 @@
+/* Анимация генерируется динамически в PHP на основе выбранного цвета */
+
+#gotosocial.gotosocial {
+  position: fixed !important;
+  right: 20px !important;
+  bottom: 120px !important;
+  z-index: 9999 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#gotosocial .gotosocial__btn {
+  position: relative !important;
+  border: none !important;
+  border-radius: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 56px !important;
+  height: 56px !important;
+  background: var(--gotosocial-color, #c69843) !important;
+  transition: all 0.3s ease !important;
+  animation: pulse-gold 2s infinite;
+  cursor: pointer !important;
+  box-shadow: none;
+  outline: none !important;
+  line-height: 1 !important;
+  font-size: 0 !important;
+}
+
+#gotosocial .gotosocial__btn::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  background-image: url("../svg/icon--chat-white.svg") !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#gotosocial .gotosocial__btn.on {
+  animation: none !important;
+}
+
+#gotosocial .gotosocial__btn.on::before {
+  width: 16px !important;
+  height: 16px !important;
+  background-image: url("../svg/icon--close-white.svg") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+
+#gotosocial .gotosocial__wrap {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  gap: 10px;
+  list-style: none !important;
+}
+
+#gotosocial .gotosocial__wrap[hidden] {
+  display: none !important;
+}
+
+#gotosocial .gotosocial__wrap.is-open {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#gotosocial .gotosocial__item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  transition: transform 0.2s ease !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+#gotosocial .gotosocial__item:hover {
+  transform: scale(1.1) !important;
+  text-decoration: none !important;
+}
+
+#gotosocial .gotosocial__item.telegram {
+  background: #00b0f2 !important;
+}
+
+#gotosocial .gotosocial__item.whatsapp {
+  background: #25d366 !important;
+}
+
+#gotosocial .gotosocial__item.instagram {
+  background: linear-gradient(
+    45deg,
+    #faad4f 0%,
+    #dd2a7b 35%,
+    #9537b0 62%,
+    #515bd4 100%
+  ) !important;
+}
+
+#gotosocial .gotosocial__item.vk {
+  background: #0077ff !important;
+}
+
+#gotosocial .gotosocial__item.viber {
+  background: #7360f2 !important;
+}
+
+#gotosocial .gotosocial__item.pinterest {
+  background: #e60023 !important;
+}
+
+#gotosocial .gotosocial__item.max {
+  background: linear-gradient(270deg, #9642de 0%, #378dff 100%) !important;
+}
+
+#gotosocial .gotosocial__item svg {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  fill: #fff !important;
+  display: block !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+#gotosocial .gotosocial__item svg * {
+  fill: #fff !important;
+}
+
+/* Адаптив для мобильных устройств */
+@media (max-width: 768px) {
+  #gotosocial.gotosocial {
+    right: 15px !important;
+    bottom: 80px !important;
+  }
+
+  #gotosocial .gotosocial__btn {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  #gotosocial .gotosocial__item {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    max-width: 44px !important;
+    max-height: 44px !important;
+  }
+
+  #gotosocial .gotosocial__item svg {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+  }
+}
