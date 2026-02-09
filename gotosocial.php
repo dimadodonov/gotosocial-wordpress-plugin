@@ -31,8 +31,12 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
     'gotosocial'
 );
 
+// Использовать GitHub релизы (вместо веток)
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+
 // Установка ветки для проверки обновлений (GitHub по умолчанию использует 'main')
-$myUpdateChecker->setBranch('main');
+// Для релизов эта строка не обязательна, но оставляем для совместимости
+// $myUpdateChecker->setBranch('main');
 
 // Если репозиторий приватный, раскомментируйте и добавьте токен:
 // $myUpdateChecker->setAuthentication('your-github-token-here');
