@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -37,6 +37,18 @@ if (file_exists($update_checker_file)) {
     
     // Использовать ZIP файлы из GitHub Releases вместо автоматически сгенерированных zipball
     $myUpdateChecker->getVcsApi()->enableReleaseAssets();
+    
+    // Фильтр для замены zipball URL на ZIP из релиза
+    add_filter('puc_request_info_result-gotosocial', function($pluginInfo, $result = null) {
+        if ($pluginInfo !== null && isset($pluginInfo->download_url)) {
+            // Заменяем zipball URL на URL загруженного ZIP файла из релиза
+            if (preg_match('/zipball\/v([\d.]+)/', $pluginInfo->download_url, $matches)) {
+                $version = $matches[1];
+                $pluginInfo->download_url = "https://github.com/dimadodonov/gotosocial-wordpress-plugin/releases/download/v{$version}/gotosocial.zip";
+            }
+        }
+        return $pluginInfo;
+    }, 10, 2);
 
     // Если репозиторий приватный, раскомментируйте и добавьте токен:
     // $myUpdateChecker->setAuthentication('your-github-token-here');
@@ -475,7 +487,7 @@ class GoToSocial_Widget {
         settings_errors('gotosocial_messages');
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.1.2</span></h1>
+            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.1.3</span></h1>
             
             <form action="options.php" method="post">
                 <?php
