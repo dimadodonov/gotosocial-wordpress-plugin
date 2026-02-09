@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -21,21 +21,24 @@ if (!defined('ABSPATH')) {
 // Определяем константу для basename плагина
 define('GOTOSOCIAL_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
-// Подключение библиотеки автоматических обновлений
-require plugin_dir_path(__FILE__) . 'lib/plugin-update-checker/plugin-update-checker.php';
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+// Подключение библиотеки автоматических обновлений (если доступна)
+$update_checker_file = plugin_dir_path(__FILE__) . 'lib/plugin-update-checker/plugin-update-checker.php';
+if (file_exists($update_checker_file)) {
+    require $update_checker_file;
+    use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/dimadodonov/gotosocial-wordpress-plugin/',
-    __FILE__,
-    'gotosocial'
-);
+    $myUpdateChecker = PucFactory::buildUpdateChecker(
+        'https://github.com/dimadodonov/gotosocial-wordpress-plugin/',
+        __FILE__,
+        'gotosocial'
+    );
 
-// Установка ветки для проверки обновлений (GitHub по умолчанию использует 'main')
-$myUpdateChecker->setBranch('main');
+    // Установка ветки для проверки обновлений (GitHub по умолчанию использует 'main')
+    $myUpdateChecker->setBranch('main');
 
-// Если репозиторий приватный, раскомментируйте и добавьте токен:
-// $myUpdateChecker->setAuthentication('your-github-token-here');
+    // Если репозиторий приватный, раскомментируйте и добавьте токен:
+    // $myUpdateChecker->setAuthentication('your-github-token-here');
+}
 
 // Добавляем ссылку на настройки на странице плагинов
 add_filter('plugin_action_links_' . GOTOSOCIAL_PLUGIN_BASENAME, 'gotosocial_add_settings_link');
@@ -470,7 +473,7 @@ class GoToSocial_Widget {
         settings_errors('gotosocial_messages');
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.0.8</span></h1>
+            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.0.9</span></h1>
             
             <form action="options.php" method="post">
                 <?php
