@@ -1,6 +1,6 @@
 # GoToSocial Widget - WordPress Plugin
 
-[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/dimadodonov/gotosocial-wordpress-plugin/releases)
+[![Version](https://img.shields.io/badge/version-1.0.4-blue.svg)](https://github.com/dimadodonov/gotosocial-wordpress-plugin/releases)
 [![License](https://img.shields.io/badge/license-GPL%20v2-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![WordPress](https://img.shields.io/badge/wordpress-5.0%2B-blue.svg)](https://wordpress.org/)
 
@@ -123,6 +123,13 @@ git clone https://github.com/YahnisElsts/plugin-update-checker.git
 6. Создайте Release на GitHub с ZIP-файлом плагина
 
 ## 📝 Changelog
+
+### v1.0.4 (2026-02-09)
+
+- ✨ Добавлена возможность выбора позиции виджета (слева или справа)
+- ✨ Добавлена настройка отступа снизу (высота отображения)
+- ✨ Добавлена настройка отступа от края экрана
+- ✅ Полное управление позиционированием виджета из админки
 
 ### v1.0.3 (2026-02-09)
 

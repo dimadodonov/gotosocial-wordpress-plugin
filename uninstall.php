@@ -14,6 +14,9 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 $options = array(
     'gotosocial_enabled',
     'gotosocial_button_color',
+    'gotosocial_position',
+    'gotosocial_bottom_offset',
+    'gotosocial_side_offset',
     'gotosocial_telegram',
     'gotosocial_whatsapp',
     'gotosocial_max',

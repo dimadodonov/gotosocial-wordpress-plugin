@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -84,11 +84,15 @@ class GoToSocial_Widget {
             'gotosocial-styles',
             plugins_url('assets/css/gotosocial.css', __FILE__),
             array(),
-            '1.0.3'
+            '1.0.4'
         );
         
         // Добавляем кастомные CSS переменные
         $button_color = get_option('gotosocial_button_color', '#C69843');
+        $position = get_option('gotosocial_position', 'right');
+        $bottom_offset = get_option('gotosocial_bottom_offset', '20');
+        $side_offset = get_option('gotosocial_side_offset', '20');
+        
         $custom_css = "
             :root {
                 --gotosocial-color: {$button_color};
@@ -101,6 +105,11 @@ class GoToSocial_Widget {
             #gotosocial .gotosocial__btn {
                 background: {$button_color} !important;
             }
+            #gotosocial {
+                bottom: {$bottom_offset}px !important;
+                {$position}: {$side_offset}px !important;
+                " . ($position === 'left' ? 'right: auto !important;' : 'left: auto !important;') . "
+            }
         ";
         wp_add_inline_style('gotosocial-styles', $custom_css);
         
@@ -108,7 +117,7 @@ class GoToSocial_Widget {
             'gotosocial-script',
             plugins_url('assets/js/gotosocial.js', __FILE__),
             array(),
-            '1.0.3',
+            '1.0.4',
             true
         );
     }
@@ -176,6 +185,9 @@ class GoToSocial_Widget {
     public function register_settings() {
         register_setting('gotosocial_settings', 'gotosocial_enabled');
         register_setting('gotosocial_settings', 'gotosocial_button_color');
+        register_setting('gotosocial_settings', 'gotosocial_position');
+        register_setting('gotosocial_settings', 'gotosocial_bottom_offset');
+        register_setting('gotosocial_settings', 'gotosocial_side_offset');
         register_setting('gotosocial_settings', 'gotosocial_telegram');
         register_setting('gotosocial_settings', 'gotosocial_whatsapp');
         register_setting('gotosocial_settings', 'gotosocial_max');
@@ -208,6 +220,39 @@ class GoToSocial_Widget {
             'gotosocial',
             'gotosocial_appearance_section',
             array('field' => 'gotosocial_button_color')
+        );
+        
+        add_settings_field(
+            'gotosocial_position',
+            'Позиция виджета',
+            array($this, 'select_field_callback'),
+            'gotosocial',
+            'gotosocial_appearance_section',
+            array(
+                'field' => 'gotosocial_position',
+                'options' => array(
+                    'right' => 'Справа',
+                    'left' => 'Слева'
+                )
+            )
+        );
+        
+        add_settings_field(
+            'gotosocial_bottom_offset',
+            'Отступ снизу (px)',
+            array($this, 'number_field_callback'),
+            'gotosocial',
+            'gotosocial_appearance_section',
+            array('field' => 'gotosocial_bottom_offset', 'placeholder' => '20', 'min' => '0', 'max' => '500')
+        );
+        
+        add_settings_field(
+            'gotosocial_side_offset',
+            'Отступ от края (px)',
+            array($this, 'number_field_callback'),
+            'gotosocial',
+            'gotosocial_appearance_section',
+            array('field' => 'gotosocial_side_offset', 'placeholder' => '20', 'min' => '0', 'max' => '500')
         );
         
         // Секция социальных сетей
@@ -339,6 +384,54 @@ class GoToSocial_Widget {
             esc_attr($field),
             checked($value, '1', false)
         );
+    }
+    
+    /**
+     * Вывод выпадающего списка
+     */
+    public function select_field_callback($args) {
+        $field = $args['field'];
+        $value = get_option($field, 'right');
+        $options = isset($args['options']) ? $args['options'] : array();
+        
+        echo '<select name="' . esc_attr($field) . '">';
+        foreach ($options as $option_value => $option_label) {
+            printf(
+                '<option value="%s" %s>%s</option>',
+                esc_attr($option_value),
+                selected($value, $option_value, false),
+                esc_html($option_label)
+            );
+        }
+        echo '</select>';
+        
+        if (isset($args['description'])) {
+            echo '<p class="description">' . esc_html($args['description']) . '</p>';
+        }
+    }
+    
+    /**
+     * Вывод числового поля
+     */
+    public function number_field_callback($args) {
+        $field = $args['field'];
+        $value = get_option($field, '20');
+        $placeholder = isset($args['placeholder']) ? $args['placeholder'] : '';
+        $min = isset($args['min']) ? $args['min'] : '0';
+        $max = isset($args['max']) ? $args['max'] : '1000';
+        
+        printf(
+            '<input type="number" name="%s" value="%s" placeholder="%s" min="%s" max="%s" />',
+            esc_attr($field),
+            esc_attr($value),
+            esc_attr($placeholder),
+            esc_attr($min),
+            esc_attr($max)
+        );
+        
+        if (isset($args['description'])) {
+            echo '<p class="description">' . esc_html($args['description']) . '</p>';
+        }
     }
     
     /**

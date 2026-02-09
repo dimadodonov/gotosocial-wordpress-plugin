@@ -6,10 +6,13 @@
 
 ### Настройки внешнего вида
 
-| Option Name               | Type   | Default   | Description                                |
-| ------------------------- | ------ | --------- | ------------------------------------------ |
-| `gotosocial_enabled`      | string | '1'       | Включение/выключение виджета ('1' или '0') |
-| `gotosocial_button_color` | string | '#C69843' | HEX цвет кнопки виджета                    |
+| Option Name                  | Type   | Default   | Description                                    |
+| ---------------------------- | ------ | --------- | ---------------------------------------------- |
+| `gotosocial_enabled`         | string | '1'       | Включение/выключение виджета ('1' или '0')     |
+| `gotosocial_button_color`    | string | '#C69843' | HEX цвет кнопки виджета                        |
+| `gotosocial_position`        | string | 'right'   | Позиция виджета: 'left' (слева) или 'right' (справа) |
+| `gotosocial_bottom_offset`   | string | '20'      | Отступ снизу в пикселях (высота отображения)   |
+| `gotosocial_side_offset`     | string | '20'      | Отступ от левого или правого края в пикселях   |
 
 ### Ссылки на социальные сети
 
