@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
