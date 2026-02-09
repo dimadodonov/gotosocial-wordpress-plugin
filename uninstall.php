@@ -17,6 +17,7 @@ $options = array(
     'gotosocial_position',
     'gotosocial_bottom_offset',
     'gotosocial_side_offset',
+    'gotosocial_hide_mobile',
     'gotosocial_telegram',
     'gotosocial_whatsapp',
     'gotosocial_max',

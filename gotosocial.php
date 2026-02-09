@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -84,7 +84,7 @@ class GoToSocial_Widget {
             'gotosocial-styles',
             plugins_url('assets/css/gotosocial.css', __FILE__),
             array(),
-            '1.0.4'
+            '1.0.5'
         );
         
         // Добавляем кастомные CSS переменные
@@ -92,6 +92,7 @@ class GoToSocial_Widget {
         $position = get_option('gotosocial_position', 'right');
         $bottom_offset = get_option('gotosocial_bottom_offset', '20');
         $side_offset = get_option('gotosocial_side_offset', '20');
+        $hide_mobile = get_option('gotosocial_hide_mobile', '0');
         
         $custom_css = "
             :root {
@@ -110,6 +111,7 @@ class GoToSocial_Widget {
                 {$position}: {$side_offset}px !important;
                 " . ($position === 'left' ? 'right: auto !important;' : 'left: auto !important;') . "
             }
+            " . ($hide_mobile === '1' ? '@media (max-width: 768px) { #gotosocial { display: none !important; } }' : '') . "
         ";
         wp_add_inline_style('gotosocial-styles', $custom_css);
         
@@ -117,7 +119,7 @@ class GoToSocial_Widget {
             'gotosocial-script',
             plugins_url('assets/js/gotosocial.js', __FILE__),
             array(),
-            '1.0.4',
+            '1.0.5',
             true
         );
     }
@@ -188,6 +190,7 @@ class GoToSocial_Widget {
         register_setting('gotosocial_settings', 'gotosocial_position');
         register_setting('gotosocial_settings', 'gotosocial_bottom_offset');
         register_setting('gotosocial_settings', 'gotosocial_side_offset');
+        register_setting('gotosocial_settings', 'gotosocial_hide_mobile');
         register_setting('gotosocial_settings', 'gotosocial_telegram');
         register_setting('gotosocial_settings', 'gotosocial_whatsapp');
         register_setting('gotosocial_settings', 'gotosocial_max');
@@ -253,6 +256,15 @@ class GoToSocial_Widget {
             'gotosocial',
             'gotosocial_appearance_section',
             array('field' => 'gotosocial_side_offset', 'placeholder' => '20', 'min' => '0', 'max' => '500')
+        );
+        
+        add_settings_field(
+            'gotosocial_hide_mobile',
+            'Скрыть на мобильных',
+            array($this, 'checkbox_field_callback'),
+            'gotosocial',
+            'gotosocial_appearance_section',
+            array('field' => 'gotosocial_hide_mobile', 'description' => 'Скрыть виджет на экранах шириной менее 768px')
         );
         
         // Секция социальных сетей
@@ -384,6 +396,10 @@ class GoToSocial_Widget {
             esc_attr($field),
             checked($value, '1', false)
         );
+        
+        if (isset($args['description'])) {
+            echo '<p class="description">' . esc_html($args['description']) . '</p>';
+        }
     }
     
     /**
