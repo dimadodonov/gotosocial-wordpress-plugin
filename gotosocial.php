@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -34,6 +34,9 @@ if (file_exists($update_checker_file)) {
 
     // Установка ветки для проверки обновлений (GitHub по умолчанию использует 'main')
     $myUpdateChecker->setBranch('main');
+    
+    // Использовать ZIP файлы из GitHub Releases вместо автоматически сгенерированных zipball
+    $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
     // Если репозиторий приватный, раскомментируйте и добавьте токен:
     // $myUpdateChecker->setAuthentication('your-github-token-here');
@@ -472,7 +475,7 @@ class GoToSocial_Widget {
         settings_errors('gotosocial_messages');
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.1.1</span></h1>
+            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.1.2</span></h1>
             
             <form action="options.php" method="post">
                 <?php
