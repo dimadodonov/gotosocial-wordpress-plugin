@@ -1,0 +1,77 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Create Release Package
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+      - name: Create plugin package
+        run: |
+          # Создаем временную директорию для сборки
+          mkdir -p build/gotosocial
+          
+          # Копируем только необходимые файлы плагина
+          cp gotosocial.php build/gotosocial/
+          cp uninstall.php build/gotosocial/
+          cp README.md build/gotosocial/
+          cp CHANGELOG.md build/gotosocial/
+          cp DATABASE.md build/gotosocial/
+          
+          # Копируем директории
+          cp -r assets build/gotosocial/
+          cp -r templates build/gotosocial/
+          cp -r lib build/gotosocial/
+          
+          # Создаем ZIP архив
+          cd build
+          zip -r gotosocial.zip gotosocial/
+          cd ..
+          
+          # Перемещаем архив в корень для загрузки
+          mv build/gotosocial.zip ./gotosocial.zip
+      
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          # Извлекаем заметки о релизе из CHANGELOG.md
+          sed -n "/## \[${VERSION}\]/,/## \[/p" CHANGELOG.md | sed '$d' > RELEASE_NOTES.md
+          
+          # Если заметки пустые, добавляем базовую информацию
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "## GoToSocial Widget v${VERSION}" > RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "Релиз версии ${VERSION}" >> RELEASE_NOTES.md
+          fi
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: GoToSocial Widget v${{ steps.get_version.outputs.VERSION }}
+          body_path: RELEASE_NOTES.md
+          files: gotosocial.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload Release Asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: gotosocial-v${{ steps.get_version.outputs.VERSION }}
+          path: gotosocial.zip
+          retention-days: 90

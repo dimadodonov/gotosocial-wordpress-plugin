@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -101,7 +101,7 @@ class GoToSocial_Widget {
             'gotosocial-styles',
             plugins_url('assets/css/gotosocial.css', __FILE__),
             array(),
-            '1.0.5'
+            '1.2.2'
         );
         
         // Добавляем кастомные CSS переменные
@@ -120,15 +120,15 @@ class GoToSocial_Widget {
                 70% { box-shadow: 0 0 0 30px " . $this->hex_to_rgba($button_color, 0) . "; }
                 100% { box-shadow: 0 0 0 0 " . $this->hex_to_rgba($button_color, 0) . "; }
             }
-            #gotosocial .gotosocial__btn {
+            #gotosocial.gotosocial .gotosocial__btn {
                 background: {$button_color} !important;
             }
-            #gotosocial {
+            #gotosocial.gotosocial {
                 bottom: {$bottom_offset}px !important;
                 {$position}: {$side_offset}px !important;
                 " . ($position === 'left' ? 'right: auto !important;' : 'left: auto !important;') . "
             }
-            " . ($hide_mobile === '1' ? '@media (max-width: 768px) { #gotosocial { display: none !important; } }' : '') . "
+            " . ($hide_mobile === '1' ? '@media (max-width: 768px) { #gotosocial.gotosocial { display: none !important; } }' : '') . "
         ";
         wp_add_inline_style('gotosocial-styles', $custom_css);
         
@@ -136,7 +136,7 @@ class GoToSocial_Widget {
             'gotosocial-script',
             plugins_url('assets/js/gotosocial.js', __FILE__),
             array(),
-            '1.0.5',
+            '1.2.2',
             true
         );
     }
@@ -487,7 +487,7 @@ class GoToSocial_Widget {
         settings_errors('gotosocial_messages');
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.2.1</span></h1>
+            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.2.2</span></h1>
             
             <form action="options.php" method="post">
                 <?php

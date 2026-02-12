@@ -2,11 +2,10 @@
 
 #gotosocial.gotosocial {
   position: fixed !important;
-  right: 20px !important;
-  bottom: 120px !important;
   z-index: 9999 !important;
   margin: 0 !important;
   padding: 0 !important;
+  /* Позиционирование (right/left, bottom) задается через настройки плагина */
 }
 
 #gotosocial .gotosocial__btn {
@@ -156,11 +155,6 @@
 
 /* Адаптив для мобильных устройств */
 @media (max-width: 768px) {
-  #gotosocial.gotosocial {
-    right: 15px !important;
-    bottom: 80px !important;
-  }
-
   #gotosocial .gotosocial__btn {
     width: 48px !important;
     height: 48px !important;

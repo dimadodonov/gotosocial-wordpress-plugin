@@ -13,6 +13,7 @@
 | `gotosocial_position`        | string | 'right'   | Позиция виджета: 'left' (слева) или 'right' (справа) |
 | `gotosocial_bottom_offset`   | string | '20'      | Отступ снизу в пикселях (высота отображения)   |
 | `gotosocial_side_offset`     | string | '20'      | Отступ от левого или правого края в пикселях   |
+| `gotosocial_hide_mobile`     | string | '0'       | Скрыть на мобильных устройствах ('1' или '0')  |
 
 ### Ссылки на социальные сети
 
@@ -64,6 +65,10 @@ DELETE FROM wp_options
 WHERE option_name IN (
     'gotosocial_enabled',
     'gotosocial_button_color',
+    'gotosocial_position',
+    'gotosocial_bottom_offset',
+    'gotosocial_side_offset',
+    'gotosocial_hide_mobile',
     'gotosocial_telegram',
     'gotosocial_whatsapp',
     'gotosocial_max',
@@ -87,8 +92,8 @@ LINES TERMINATED BY '\n';
 ```
 
 ## Размер данных
-
-Приблизительный размер данных в базе:
+13
+- Общий размер: ≈ 1300-2600 байт (< 3:
 
 - 1 опция ≈ 100-200 байт (включая служебные поля)
 - Всего опций: 9
