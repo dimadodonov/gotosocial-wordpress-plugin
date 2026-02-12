@@ -46,28 +46,29 @@ jobs:
       - name: Generate Release Notes
         id: release_notes
         run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          
           # Извлекаем заметки о релизе из CHANGELOG.md
-          sed -n "/## \[${VERSION}\]/,/## \[/p" CHANGELOG.md | sed '$d' > RELEASE_NOTES.md
+          sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$d' > RELEASE_NOTES.md
           
           # Если заметки пустые, добавляем базовую информацию
           if [ ! -s RELEASE_NOTES.md ]; then
-            echo "## GoToSocial Widget v${VERSION}" > RELEASE_NOTES.md
+            echo "## GoToSocial Widget v$VERSION" > RELEASE_NOTES.md
             echo "" >> RELEASE_NOTES.md
-            echo "Релиз версии ${VERSION}" >> RELEASE_NOTES.md
+            echo "### 🐛 Исправления" >> RELEASE_NOTES.md
+            echo "- Устранена проблема с переопределением стилей из настроек" >> RELEASE_NOTES.md
           fi
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
       
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: GoToSocial Widget v${{ steps.get_version.outputs.VERSION }}
           body_path: RELEASE_NOTES.md
           files: gotosocial.zip
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_unmatched_files: true
+          generate_release_notes: false
       
       - name: Upload Release Asset
         uses: actions/upload-artifact@v4
