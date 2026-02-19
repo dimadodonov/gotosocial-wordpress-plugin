@@ -19,6 +19,8 @@
 
 | Option Name            | Type   | Default | Description             |
 | ---------------------- | ------ | ------- | ----------------------- |
+| `gotosocial_phone`     | string | ''      | URI телефона (tel:+7...)  |
+| `gotosocial_email`     | string | ''      | URI email (mailto:...)   |
 | `gotosocial_telegram`  | string | ''      | URL профиля Telegram    |
 | `gotosocial_whatsapp`  | string | ''      | URL/URI WhatsApp        |
 | `gotosocial_vk`        | string | ''      | URL профиля VK          |
@@ -69,6 +71,8 @@ WHERE option_name IN (
     'gotosocial_bottom_offset',
     'gotosocial_side_offset',
     'gotosocial_hide_mobile',
+    'gotosocial_phone',
+    'gotosocial_email',
     'gotosocial_telegram',
     'gotosocial_whatsapp',
     'gotosocial_max',
@@ -92,12 +96,12 @@ LINES TERMINATED BY '\n';
 ```
 
 ## Размер данных
-13
-- Общий размер: ≈ 1300-2600 байт (< 3:
+
+Приблизительный размер данных в базе:
 
 - 1 опция ≈ 100-200 байт (включая служебные поля)
-- Всего опций: 9
-- Общий размер: ≈ 900-1800 байт (< 2 KB)
+- Всего опций: 15
+- Общий размер: ≈ 1500-3000 байт (< 3 KB)
 
 Плагин имеет минимальное влияние на размер базы данных.
 

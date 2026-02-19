@@ -102,6 +102,14 @@
   text-decoration: none !important;
 }
 
+#gotosocial .gotosocial__item.phone {
+  background: #4CAF50 !important;
+}
+
+#gotosocial .gotosocial__item.email {
+  background: #FF5722 !important;
+}
+
 #gotosocial .gotosocial__item.telegram {
   background: #00b0f2 !important;
 }

@@ -11,6 +11,18 @@ if (!defined('ABSPATH')) {
 <div id="gotosocial" class="gotosocial">
     <button type="button" class="gotosocial__btn" aria-expanded="false" aria-controls="gotosocial-list"></button>
     <div id="gotosocial-list" class="gotosocial__wrap" hidden>
+        <?php if (!empty($phone)) : ?>
+        <a class="gotosocial__item phone" href="<?php echo esc_url($phone); ?>" rel="noopener">
+            <?php include plugin_dir_path(dirname(__FILE__)) . 'assets/svg/icon--social-phone.svg'; ?>
+        </a>
+        <?php endif; ?>
+        
+        <?php if (!empty($email)) : ?>
+        <a class="gotosocial__item email" href="<?php echo esc_url($email); ?>" rel="noopener">
+            <?php include plugin_dir_path(dirname(__FILE__)) . 'assets/svg/icon--social-email.svg'; ?>
+        </a>
+        <?php endif; ?>
+        
         <?php if (!empty($telegram) && $telegram !== '#') : ?>
         <a class="gotosocial__item telegram" href="<?php echo esc_url($telegram); ?>" target="_blank" rel="noopener">
             <?php include plugin_dir_path(dirname(__FILE__)) . 'assets/svg/icon--social-telegram.svg'; ?>

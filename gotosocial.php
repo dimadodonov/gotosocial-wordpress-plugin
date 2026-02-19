@@ -3,7 +3,7 @@
  * Plugin Name: GoToSocial Widget
  * Plugin URI: https://mitroliti.ru
  * Description: Плавающий виджет с кнопками социальных сетей и мессенджеров
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Mitroliti
  * Author URI: http://mitroliti.ru
  * License: GPL v2 or later
@@ -101,7 +101,7 @@ class GoToSocial_Widget {
             'gotosocial-styles',
             plugins_url('assets/css/gotosocial.css', __FILE__),
             array(),
-            '1.2.2'
+            '1.2.3'
         );
         
         // Добавляем кастомные CSS переменные
@@ -136,7 +136,7 @@ class GoToSocial_Widget {
             'gotosocial-script',
             plugins_url('assets/js/gotosocial.js', __FILE__),
             array(),
-            '1.2.2',
+            '1.2.3',
             true
         );
     }
@@ -162,6 +162,8 @@ class GoToSocial_Widget {
      * Вывод виджета в футере
      */
     public function render_widget() {
+        $phone = get_option('gotosocial_phone', '');
+        $email = get_option('gotosocial_email', '');
         $telegram = get_option('gotosocial_telegram', '');
         $whatsapp = get_option('gotosocial_whatsapp', '');
         $max = get_option('gotosocial_max', '');
@@ -176,7 +178,7 @@ class GoToSocial_Widget {
         }
         
         // Проверяем, есть ли хотя бы одна активная ссылка
-        $has_links = !empty($telegram) || !empty($whatsapp) || !empty($max) || !empty($vk) || !empty($instagram) || !empty($viber) || !empty($pinterest);
+        $has_links = !empty($phone) || !empty($email) || !empty($telegram) || !empty($whatsapp) || !empty($max) || !empty($vk) || !empty($instagram) || !empty($viber) || !empty($pinterest);
         
         if (!$has_links) {
             return;
@@ -208,6 +210,8 @@ class GoToSocial_Widget {
         register_setting('gotosocial_settings', 'gotosocial_bottom_offset');
         register_setting('gotosocial_settings', 'gotosocial_side_offset');
         register_setting('gotosocial_settings', 'gotosocial_hide_mobile');
+        register_setting('gotosocial_settings', 'gotosocial_phone');
+        register_setting('gotosocial_settings', 'gotosocial_email');
         register_setting('gotosocial_settings', 'gotosocial_telegram');
         register_setting('gotosocial_settings', 'gotosocial_whatsapp');
         register_setting('gotosocial_settings', 'gotosocial_max');
@@ -290,6 +294,24 @@ class GoToSocial_Widget {
             'Настройки социальных сетей',
             array($this, 'settings_section_callback'),
             'gotosocial'
+        );
+        
+        add_settings_field(
+            'gotosocial_phone',
+            'Телефон',
+            array($this, 'text_field_callback'),
+            'gotosocial',
+            'gotosocial_main_section',
+            array('field' => 'gotosocial_phone', 'placeholder' => 'tel:+79001234567')
+        );
+        
+        add_settings_field(
+            'gotosocial_email',
+            'Email',
+            array($this, 'text_field_callback'),
+            'gotosocial',
+            'gotosocial_main_section',
+            array('field' => 'gotosocial_email', 'placeholder' => 'mailto:info@example.com')
         );
         
         add_settings_field(
@@ -406,7 +428,7 @@ class GoToSocial_Widget {
      */
     public function checkbox_field_callback($args) {
         $field = $args['field'];
-        $value = get_option($field, '1');
+        $value = get_option($field, '0');
         
         printf(
             '<input type="checkbox" name="%s" value="1" %s />',
@@ -487,7 +509,7 @@ class GoToSocial_Widget {
         settings_errors('gotosocial_messages');
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.2.2</span></h1>
+            <h1><?php echo esc_html(get_admin_page_title()); ?> <span style="font-size: 14px; color: #666;">v1.2.3</span></h1>
             
             <form action="options.php" method="post">
                 <?php

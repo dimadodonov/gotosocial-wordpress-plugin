@@ -1,6 +1,6 @@
 # GoToSocial Widget - WordPress Plugin
 
-[![Version](https://img.shields.io/badge/version-1.2.2-blue.svg)](https://github.com/dimadodonov/gotosocial-wordpress-plugin/releases)
+[![Version](https://img.shields.io/badge/version-1.2.3-blue.svg)](https://github.com/dimadodonov/gotosocial-wordpress-plugin/releases)
 [![License](https://img.shields.io/badge/license-GPL%20v2-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![WordPress](https://img.shields.io/badge/wordpress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![Release](https://github.com/dimadodonov/gotosocial-wordpress-plugin/actions/workflows/release.yml/badge.svg)](https://github.com/dimadodonov/gotosocial-wordpress-plugin/actions/workflows/release.yml)
@@ -11,7 +11,7 @@
 
 ## 🌟 Возможности
 
-- ✅ **7 популярных социальных сетей**: Telegram, WhatsApp, VK, Instagram, Viber, Pinterest, Max
+- ✅ **9 способов связи**: Телефон, Email, Telegram, WhatsApp, VK, Instagram, Viber, Pinterest, Max
 - ✅ **Гибкое позиционирование**: Настройка позиции (слева/справа) и отступов виджета
 - ✅ **Настраиваемый цвет**: Выберите любой цвет для кнопки виджета
 - ✅ **Адаптивный дизайн**: Работает на всех устройствах с возможностью скрытия на мобильных
@@ -54,6 +54,8 @@
 
 ### Примеры ссылок
 
+- **Телефон**: `tel:+79001234567`
+- **Email**: `mailto:info@example.com`
 - **Telegram**: `https://t.me/username`
 - **WhatsApp**: `https://wa.me/1234567890`
 - **VK**: `https://vk.com/username`
